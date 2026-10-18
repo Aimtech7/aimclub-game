@@ -59,7 +59,7 @@ public final class MainActivity extends Activity {
                 Uri uri = request.getUrl();
                 if (trusted(uri)) {
                     if (LOCAL.equals(uri.getHost()) && uri.getPath() != null &&
-                        (uri.getPath().startsWith("/online") || uri.getPath().startsWith("/downloads"))) {
+                        (uri.getPath().startsWith("/online") || uri.getPath().startsWith("/downloads") || uri.getPath().startsWith("/diagnostics"))) {
                         view.loadUrl(BuildConfig.WEB_ORIGIN + uri.getEncodedPath() +
                             (uri.getEncodedQuery() == null ? "" : "?" + uri.getEncodedQuery()));
                         return true;
