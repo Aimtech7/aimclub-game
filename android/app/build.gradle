@@ -1,0 +1,15 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'co.aimnex.aimfun'
+    buildFeatures { buildConfig true }
+    compileSdk 35
+    defaultConfig {
+        applicationId 'co.aimnex.aimfun'
+        minSdk 26
+        targetSdk 35
+        versionCode 20000
+        versionName '2.0.0-preview'
+    }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+}
+dependencies { implementation 'androidx.webkit:webkit:1.12.1' }
