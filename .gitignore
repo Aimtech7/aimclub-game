@@ -13,3 +13,11 @@ android/local.properties
 android/**/build/
 *.jks
 *.keystore
+
+.local/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+playwright-report/
+test-results/
+.local-wrangler.json

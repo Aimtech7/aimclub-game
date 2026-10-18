@@ -17,19 +17,20 @@ Live site: https://truth-dare-social.aimventures.chatgpt.site
 
 ## Run on Windows, macOS or Linux
 
-Install Node.js 22 or newer (tested with Node.js 24), then open this folder in VS Code or Antigravity. No npm dependencies are required for the build and automated tests.
+Install Node.js 24 or newer (tested with Node.js 24), then open this folder in VS Code or Antigravity. Install the pinned development dependencies with npm ci.
 
 ```sh
+npm ci
 npm run build
 npm test
-npm run preview:static
+npm run dev
 ```
 
-Open http://127.0.0.1:8080. Static preview runs shared-device games, local profiles, packs and the PWA shell. Online rooms/chat/calls need the deployed Worker and D1 backend; they do not run on this static preview server. Stop with Ctrl+C.
+Open http://127.0.0.1:8080. npm run dev runs the full app with a persistent local SQLite database, including rooms/chat/multiplayer. The database is saved in .local/aimfun.sqlite. Stop with Ctrl+C. npm run preview:static remains available for frontend-only preview.
 
 ## Online hosting
 
-This snapshot is deployed through ChatGPT Sites as a Cloudflare Worker with a D1 database. A GitHub push alone does not update that live Site or provision a backend. To move hosting, configure a Worker entrypoint from `dist/server/index.js`, bind a D1 database as `DB`, and apply `drizzle/0000_rooms.sql` using your chosen deployment tooling. Do not reuse an existing database without reviewing migrations.
+This snapshot is deployed through ChatGPT Sites as a Cloudflare Worker with a D1 database. GitHub runs automated tests and a debug APK build on pushes. An opt-in Cloudflare deployment workflow is included; enable it only after configuring your own Cloudflare account, database and GitHub secrets. It does not update the original Sites publication automatically. To move hosting, configure a Worker entrypoint from `dist/server/index.js`, bind a D1 database as `DB`, and apply `drizzle/0000_rooms.sql` using your chosen deployment tooling. Do not reuse an existing database without reviewing migrations.
 
 Voice/video is beta. A public STUN server is configured by default, but no TURN relay is provisioned. `RTC_ICE_SERVERS` can be supplied as a runtime secret with provider-issued ICE configuration. Do not put relay credentials or other secrets in source control. Real-device media, browser installation/layout and Android APK verification remain outstanding. Profiles are browser-local; calendar reminders are not background push notifications.
 
@@ -40,9 +41,10 @@ Repository: https://github.com/Aimtech7/aimclub-game
 ```sh
 git clone https://github.com/Aimtech7/aimclub-game.git
 cd aimclub-game
+npm ci
 npm run build
 npm test
-npm run preview:static
+npm run dev
 ```
 
 Open this folder in VS Code or Antigravity. Commit your verified changes and push normally. GitHub source updates do not automatically redeploy the existing Sites publication.
@@ -51,6 +53,12 @@ This export contains source files, not private player data, room reconnect token
 
 ## Source snapshot
 
-Application source commit: `908b94e11b65e5b7491a37b35f3fad3ca42c0ef4` (Social Club 3.0). This export adds this README, `.gitignore`, a local static-preview script. The live application is unchanged.
+Original application snapshot: `908b94e11b65e5b7491a37b35f3fad3ca42c0ef4` (Social Club 3.0). This export adds this README, `.gitignore`, a local static-preview script. The live application is unchanged.
 
 All automated game/social tests and the production smoke test passed for this snapshot. Actual microphone/camera and real-phone testing have not been claimed.
+
+## Development and release workflow
+
+See [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) for local/LAN/HTTPS setup, [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for GitHub/Cloudflare/TURN activation, and [docs/DEVICE_TESTING.md](docs/DEVICE_TESTING.md) for physical-phone checks. Open `/diagnostics/` on each phone for capability and permission checks.
+
+GitHub Actions produces a debug APK artifact after the browser tests pass. It is a test build, not a signed production/Play Store release. Android runtime media permission and file chooser/save flows are implemented but still need physical-device validation.

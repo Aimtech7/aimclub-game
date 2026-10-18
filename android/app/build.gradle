@@ -1,4 +1,8 @@
 plugins { id 'com.android.application' }
+def onlineOrigin = System.getenv('AIMFUN_WEB_URL') ?: 'https://truth-dare-social.aimventures.chatgpt.site'
+def parsedOrigin = new URI(onlineOrigin)
+if (parsedOrigin.scheme != 'https' || parsedOrigin.host == null || parsedOrigin.userInfo != null || parsedOrigin.query != null || parsedOrigin.fragment != null || !(parsedOrigin.path in ['', '/'])) throw new GradleException('AIMFUN_WEB_URL must be an HTTPS origin without a path.')
+onlineOrigin = onlineOrigin.replaceAll('/+$', '')
 android {
     namespace 'co.aimnex.aimfun'
     buildFeatures { buildConfig true }
@@ -7,8 +11,9 @@ android {
         applicationId 'co.aimnex.aimfun'
         minSdk 26
         targetSdk 35
-        versionCode 20000
-        versionName '2.0.0-preview'
+        versionCode 30100
+        versionName '3.1.0-preview'
+        buildConfigField 'String', 'WEB_ORIGIN', '"' + onlineOrigin + '"'
     }
     compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
 }

@@ -1,11 +1,23 @@
 {
   "name": "aimfun-club",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "private": true,
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "test": "node tests/rooms.mjs && node tests/social.mjs && node tests/client.mjs && node tests/assets.mjs && node tests/hub.cjs && node tests/party.cjs && node tests/tod.cjs && node tests/ever.cjs",
-    "preview:static": "node scripts/preview-static.mjs"
+    "test": "node tests/rooms.mjs && node tests/social.mjs && node tests/client.mjs && node tests/assets.mjs && node tests/hub.cjs && node tests/party.cjs && node tests/tod.cjs && node tests/ever.cjs && node tests/local.mjs",
+    "preview:static": "node scripts/preview-static.mjs",
+    "dev": "node scripts/build.mjs && node --env-file-if-exists=.env server/local.mjs",
+    "start": "node --env-file-if-exists=.env server/local.mjs",
+    "test:local": "node tests/local.mjs",
+    "test:browser": "playwright test",
+    "configure:cloudflare": "node deployment/configure.mjs"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.1",
+    "wrangler": "4.151.1"
   }
 }

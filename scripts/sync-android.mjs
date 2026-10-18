@@ -1,0 +1,3 @@
+import fs from'node:fs/promises';import path from'node:path';
+const target='android/app/src/main/assets';await fs.rm(target,{recursive:true,force:true});await fs.mkdir(target,{recursive:true});
+let count=0;async function copy(dir){for(const e of await fs.readdir(dir,{withFileTypes:true})){const p=path.join(dir,e.name),relative=path.relative('public',p);if(relative==='downloads'||e.name==='sw.js')continue;if(e.isDirectory())await copy(p);else{const dest=path.join(target,relative);await fs.mkdir(path.dirname(dest),{recursive:true});await fs.copyFile(p,dest);count++;}}}await copy('public');console.log('Synced '+count+' offline Android assets.');
