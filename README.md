@@ -53,7 +53,7 @@ This export contains source files, not private player data, room reconnect token
 
 ## Source snapshot
 
-Original application snapshot: `908b94e11b65e5b7491a37b35f3fad3ca42c0ef4` (Social Club 3.0). This export adds this README, `.gitignore`, a local static-preview script. The live application is unchanged.
+Original application snapshot: `908b94e11b65e5b7491a37b35f3fad3ca42c0ef4` (Social Club 3.0). The development edition adds a persistent local backend, CI/mobile-browser checks, Android build automation, diagnostics and relay deployment configuration.
 
 All automated game/social tests and the production smoke test passed for this snapshot. Actual microphone/camera and real-phone testing have not been claimed.
 

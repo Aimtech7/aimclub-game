@@ -6,3 +6,6 @@
 
 .update-app{position:fixed;left:50%;transform:translateX(-50%);bottom:20px;z-index:80;border:0;border-radius:25px;padding:12px 20px;background:#eac0d8;color:#382139;font:600 12px 'Segoe UI',sans-serif}
 .discover{grid-template-columns:2fr repeat(4,1fr)}@media(max-width:1000px){.discover{grid-template-columns:repeat(2,1fr)}}
+/* Keep long navigation labels within narrow Safari viewports. */
+aside nav a.outline{color:#eeedf6;border-color:#686575;min-width:0;overflow-wrap:anywhere}
+@media(max-width:720px){aside nav{flex-wrap:wrap;justify-content:flex-start}aside nav a{flex:1 1 130px;text-align:center;white-space:normal}.club-card{min-width:0}.club-card input,.club-card select,.club-card textarea{max-width:100%}.club-card>.outline{white-space:normal;overflow-wrap:anywhere}.inline-form input{min-width:0}}
